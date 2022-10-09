@@ -6,14 +6,12 @@ pipeline {
   stages {
     stage('Scan') {
       steps {
+        withSonarQubeEnv(installationName: 'sql') {
         sh './mvnw clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar'
-      }
-    }
-    stage('Login') {
-      steps {
-        sh 'echo $HEROKU_API_KEY | docker login --username=_ --password-stdin registry.heroku.com'
+        }
       }
     }
   }
- }
 }
+      
+    
